@@ -20,11 +20,12 @@ public class Main {
 //        userService.cleanUsersTable();
 //        userService.dropUsersTable();
         UserDaoHibernateImpl userDaoHibernate = new UserDaoHibernateImpl();
+//        userDaoHibernate.createUsersTable();
         userDaoHibernate.saveUser("София","Сакольцева",(byte)23);
 //        userDaoHibernate.cleanUsersTable();
 //
         System.out.println(userDaoHibernate.getAllUsers());
-        userDaoHibernate.createUsersTable();
+//        userDaoHibernate.createUsersTable();
 
 
 

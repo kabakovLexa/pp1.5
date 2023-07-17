@@ -19,6 +19,7 @@ public class Util {
     private static final String DB_URL = "jdbc:mysql://localhost/testpp1.4bd";
     private static final String DB_USERNAME = "root";
     private static final String DB_PASSWORD = "root";
+    private static Session session = null;
 
     public static Connection getConnection() {
         Connection connection = null;
@@ -34,7 +35,7 @@ public class Util {
     }
 
     public static Session getSession() {
-        Session session = null;
+
 
 
         Configuration configuration = new Configuration();
