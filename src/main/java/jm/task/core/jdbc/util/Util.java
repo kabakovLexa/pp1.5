@@ -26,41 +26,29 @@ public class Util {
         try {
             Class.forName(DB_DRIVER);
             connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
-
         } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }
         return connection;
-
     }
 
     public static Session getSession() {
+        if (session == null) {
+            Configuration configuration = new Configuration();
+            Properties settings = new Properties();
+            settings.put(Environment.URL, DB_URL);
+            settings.put(Environment.USER, DB_USERNAME);
+            settings.put(Environment.PASS, DB_PASSWORD);
+            settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
+            settings.put(Environment.SHOW_SQL, "true");
+            configuration.setProperties(settings);
+            configuration.addAnnotatedClass(User.class);
+            StandardServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
+                    .applySettings(configuration.getProperties()).build();
+            SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+            session = sessionFactory.openSession();
 
-
-
-        Configuration configuration = new Configuration();
-
-        Properties settings = new Properties();
-        settings.put(Environment.URL, DB_URL);
-        settings.put(Environment.USER, DB_USERNAME);
-        settings.put(Environment.PASS, DB_PASSWORD);
-        settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
-        settings.put(Environment.SHOW_SQL, "true");
-
-
-
-        configuration.setProperties(settings);
-
-        configuration.addAnnotatedClass(User.class);
-
-        StandardServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
-                .applySettings(configuration.getProperties()).build();
-        SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-        session = sessionFactory.openSession();
-
-
+        }
         return session;
     }
-
-
 }

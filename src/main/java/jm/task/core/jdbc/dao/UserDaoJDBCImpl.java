@@ -59,8 +59,8 @@ public class UserDaoJDBCImpl implements UserDao {
     @Override
     public void removeUserById(long id) {
         String sql = "DELETE FROM USER WHERE id = ?";
-        try(Connection connection = Util.getConnection();
-            PreparedStatement prepareStatement = connection.prepareStatement(sql)) {
+        try (Connection connection = Util.getConnection();
+             PreparedStatement prepareStatement = connection.prepareStatement(sql)) {
             prepareStatement.setLong(1, id);
             prepareStatement.executeUpdate();
         } catch (SQLException e) {
@@ -72,8 +72,8 @@ public class UserDaoJDBCImpl implements UserDao {
     public List<User> getAllUsers() {
         List<User> user = new ArrayList<>();
         String sql = "SELECT id,name,lastName,age FROM USER";
-        try(Connection connection = Util.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+        try (Connection connection = Util.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 User user1 = new User();
@@ -83,7 +83,6 @@ public class UserDaoJDBCImpl implements UserDao {
                 user1.setAge(resultSet.getByte("age"));
                 user.add(user1);
             }
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -93,8 +92,8 @@ public class UserDaoJDBCImpl implements UserDao {
     @Override
     public void cleanUsersTable() {
         String sql = "TRUNCATE TABLE USER";
-        try(Connection connection = Util.getConnection();
-            Statement statement = connection.createStatement()) {
+        try (Connection connection = Util.getConnection();
+             Statement statement = connection.createStatement()) {
             statement.executeUpdate(sql);
         } catch (SQLException e) {
             throw new RuntimeException(e);

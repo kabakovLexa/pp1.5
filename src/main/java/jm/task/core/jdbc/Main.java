@@ -8,8 +8,6 @@ import jm.task.core.jdbc.util.Util;
 public class Main {
     public static void main(String[] args) {
         // реализуйте алгоритм здесь
-
-
 //        UserServiceImpl userService = new UserServiceImpl();
 //        userService.createUsersTable();
 //        userService.saveUser("Алексей","Кабаков",(byte) 24);
@@ -23,13 +21,8 @@ public class Main {
 //        userDaoHibernate.createUsersTable();
         userDaoHibernate.saveUser("София","Сакольцева",(byte)23);
 //        userDaoHibernate.cleanUsersTable();
-//
         System.out.println(userDaoHibernate.getAllUsers());
 //        userDaoHibernate.createUsersTable();
-
-
-
-
 
     }
 }
